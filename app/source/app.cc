@@ -5,6 +5,7 @@
 int main(int argc, char **argv)
 {
    using namespace lime;
+   
    if (window::open(1280, 720, "lime")) {
       bitmap bm{};
 

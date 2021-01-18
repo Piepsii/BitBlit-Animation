@@ -23,7 +23,8 @@ namespace lime {
    };
 
    namespace image {
-      bool load(const char *filename, bitmap &image);
+      bool create(const char *filename, bitmap &image);
+      void destroy(bitmap &image);
    } // !image
 
    namespace window {
