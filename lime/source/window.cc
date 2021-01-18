@@ -17,6 +17,10 @@ namespace lime {
          BITMAPINFO info;
          bitmap backbuffer;
       } state{};
+
+      void init()
+      {
+      }
    } // !window
 
    static LRESULT main_window_proc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -83,11 +87,14 @@ namespace lime {
          state.info.bmiHeader.biBitCount = 32;
          state.info.bmiHeader.biCompression = BI_RGB;
 
-         color *buf = (color *)VirtualAlloc(nullptr, sizeof(color) * width * height, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-         state.backbuffer = { width, height, buf };
-         for (int index = 0; index < state.width * state.height; index++) {
+         // note: debug backbuffer
+         color *buf = (color *)VirtualAlloc(nullptr, sizeof(color) * (width / 2) * (height / 2), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+         state.backbuffer = { (width / 2), (height / 2), buf };
+         for (int index = 0; index < (width / 2) * (height / 2); index++) {
             state.backbuffer.data[index] = {};
          }
+
+         debug::init();
 
          // note: show window
          ShowWindow(state.window_handle, SW_SHOWNORMAL);
@@ -115,21 +122,28 @@ namespace lime {
 
       void display(const bitmap &image)
       {
-         if (image.data == nullptr) {
-            return;
+         const bitmap *src = &image;
+         if (!src->data || src->width <= 0 || src->height <= 0) {
+            src = &state.backbuffer;
+
+            debug::state.counter++;
+            const char *errmsg = "Trying to display an invalid bitmap!\n(data == nullptr, width <= 0, height <= 0)!";
+            const int width    = debug::width(errmsg);
+            const int center_x = (state.backbuffer.width - width) / 2;
+            const int center_y = state.backbuffer.height / 2 - 4; 
+
+            const int shift = (debug::state.counter >> 5) % 24;
+            const unsigned counter = (0xffu << shift);
+            const unsigned char r = (counter >>  0) & 0xff;
+            const unsigned char g = (counter >>  8) & 0xff;
+            const unsigned char b = (counter >> 16) & 0xff;
+            const color c = { r, g, b, 255 };
+
+            debug::log(state.backbuffer, center_x, center_y, c, errmsg);
          }
 
-         //const bitmap *dst = &image;
-         //if (!dst->data) {
-         //   dst = &state.backbuffer;
-         //
-         //   const int bbw = state.backbuffer.width / 2;
-         //   const int bbh = state.backbuffer.height / 2;
-         //   //debug::log(state.backbuffer, );
-         //}
-
-         state.info.bmiHeader.biWidth = image.width;
-         state.info.bmiHeader.biHeight = -image.height;
+         state.info.bmiHeader.biWidth = src->width;
+         state.info.bmiHeader.biHeight = -src->height;
          StretchDIBits(state.device_context_handle,
                        0,                  // dst x
                        0,                  // dst y
@@ -137,9 +151,9 @@ namespace lime {
                        state.height,       // dst height
                        0,                  // src x
                        0,                  // src y
-                       image.width,        // src width
-                       image.height,       // src height
-                       image.data,         // src data
+                       src->width,         // src width
+                       src->height,        // src height
+                       src->data,          // src data
                        &state.info,
                        DIB_RGB_COLORS,
                        SRCCOPY);

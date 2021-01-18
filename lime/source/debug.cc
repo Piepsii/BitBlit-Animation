@@ -2,11 +2,24 @@
 
 #include "state.hpp"
 #include <cstdarg>
+#include <cstring>
 #include <cstdio>
 
 namespace lime {
    namespace debug {
       namespace {
+         inline color get(const bitmap &src, int x, int y)
+         {
+            const color dummy{ 255,0,255,255 };
+            if (x < 0 || x >= src.width || 
+                y < 0 || y >= src.height) 
+            {
+               return dummy;
+            }
+
+            return src.data[y * src.width + x];
+         }
+
          inline void set(bitmap &dst, int x, int y, color c)
          {
             if (x < 0 || x >= dst.width) return;
@@ -149,9 +162,11 @@ namespace lime {
          for (int index = 0; index < 16384; index++) {
             state.font.data[index] = {};
          }
+
+         blit(state.font);
       }
 
-      void log(bitmap &dst, int x, int y, int scale, const char *format, ...)
+      void log(bitmap &dst, int x, int y, color c, const char *format, ...)
       {
          char message[2048]{};
          va_list args;
@@ -160,6 +175,7 @@ namespace lime {
          va_end(args);
 
          const float uvst = 1.0f / 16.0f;
+         const int characters_per_row = 16;
          const int character_width = 8;
          const int line_feed_height = 10;
          const int space_character = (int)' ';
@@ -187,10 +203,47 @@ namespace lime {
                character_index = invalid_character;
             }
 
-            // todo: blit sub-bitmap to bitmap
+            const int src_x = (character_index % characters_per_row) * character_width;
+            const int src_y = (character_index / characters_per_row) * character_width;
+            for (int yy = 0; yy < character_width; yy++) {
+               const int dst_y = y + yy;
+               for (int xx = 0; xx < character_width; xx++) {
+                  const int dst_x = x + xx;
+                  const color src_c = get(state.font, (src_x + xx), (src_y + yy));
+                  if (src_c.a == 0) {
+                     continue;
+                  }
+
+                  set(dst, dst_x, dst_y, c);
+               }
+            }
 
             x += character_width;
          }
+      }
+
+      int width(const char *text)
+      {
+         const int character_width = 8;
+         const int newline_character = (int)'\n';
+         const int length = (const int)strlen(text);
+
+         int max = 0;
+         int current = 0;
+         for (int index = 0; index < length; index++) {
+            int character = (int)text[index];
+            if (character == newline_character) {
+               current = 0;
+               continue;
+            }
+
+            current += character_width;
+            if (max < current) {
+               max = current;
+            }
+         }
+
+         return max;
       }
    } // !debug
 } // !lime

@@ -31,9 +31,11 @@ namespace lime {
 
    namespace debug {
       void init();
-      void log(bitmap &dst, int x, int y, int scale, const char *format, ...);
+      void log(bitmap &dst, int x, int y, color c, const char *format, ...);
+      int  width(const char *text);
 
       struct {
+         unsigned counter{};
          bitmap font{};
       } state{};
    } // !debug
