@@ -126,9 +126,9 @@ namespace lime {
 
             for (int32 x = 0; x < width; x++) {
                const int32 index = x * bytes_per_pixel;
-               const uint32 r = src[index + 0];
+               const uint32 r = src[index + 2];
+               const uint32 b = src[index + 0];
                const uint32 g = src[index + 1];
-               const uint32 b = src[index + 2];
                uint32 a = 0xff;
 
                if (bytes_per_pixel == 4) {
@@ -136,10 +136,10 @@ namespace lime {
                }
 
                color rgba = {};
-               rgba.r = (r <<  0) & 0xff;
-               rgba.g = (g <<  8) & 0xff;
-               rgba.b = (b << 16) & 0xff;
-               rgba.a = (a << 24) & 0xff;
+               rgba.r = r & 0xff;
+               rgba.g = g & 0xff;
+               rgba.b = b & 0xff;
+               rgba.a = a & 0xff;
                *dst++ = rgba;
             }
 
