@@ -6,11 +6,6 @@ int main(int argc, char **argv)
 {
    using namespace lime;
    
-   bitmap ss;
-   if (!image::create("assets/overworld.bmp", ss)) {
-      return false;
-   }
-
    if (window::open(1280, 720, "lime")) {
       bitmap bm{};
 
@@ -19,7 +14,7 @@ int main(int argc, char **argv)
             break;
          }
 
-         window::display(ss);
+         window::display(bm);
       }
    }
 

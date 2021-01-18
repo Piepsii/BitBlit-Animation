@@ -9,6 +9,13 @@ namespace lime {
       int y{};
    };
 
+   struct rectangle {
+      int x{};
+      int y{};
+      int width{};
+      int height{};
+   };
+
    struct color {
       unsigned char b{};
       unsigned char g{};
