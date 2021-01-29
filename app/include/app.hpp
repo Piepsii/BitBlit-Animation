@@ -14,6 +14,8 @@ namespace lime {
 
       bool create(const int width, const int height, Bitmap &image)
       {
+         // todo: check if image has previously been allocated, 
+         //       if so destroy it and do the below
          // todo: allocate the bitmap pixel data using 'width' and 'height'.
 
          return valid(image);
@@ -21,6 +23,7 @@ namespace lime {
 
       bool inside(const Bitmap &image, const int x, const int y)
       {
+         // todo: is the image valid?
          // todo: checks if 'x' and 'y' is inside the bitmap.
 
          return false;
@@ -29,10 +32,8 @@ namespace lime {
       Color get(const Bitmap &image, const int x, const int y)
       {
          const Color magenta{ 255, 0, 255, 255 };
-         if (!valid(image) || !inside(image, x, y)) {
-            return magenta;
-         }
-
+         // todo: is the image valid?
+         // todo: is pixel inside the image?
          // todo: calculate the correct index for 'x' and 'y' in the 
          //       bitmap and return requested pixel color. 
 
@@ -41,10 +42,8 @@ namespace lime {
 
       void set(Bitmap &image, const int x, const int y, const Color &color)
       {
-         if (!valid(image) || !inside(image, x, y)) {
-            return;
-         }
-
+         // todo: is the image valid?
+         // todo: is pixel inside the image?
          // todo: calculate the correct index for 'x' and 'y' in bitmap
          //       and set it to color 'c'
       }
@@ -55,10 +54,10 @@ namespace lime {
             return;
          }
 
-         // todo: set all bitmap pixels to color 'c'.
+         // todo: set all bitmap pixels to color 'c'
       }
 
-      void blit(Bitmap &dst, const Point &pos, const Bitmap &src, const Rectangle &rect)
+      void blit(const Bitmap &src, const Rectangle &rect, Bitmap &dst, const Point &pos)
       {
          // todo: blit a portion of 'src' specified by 'rect' onto the destination
          //       'dst' at the specified point 'pos'.
@@ -66,7 +65,7 @@ namespace lime {
          //       make sure to validate 'rect' and determine correct portion of 
          //       the 'src' bitmap: 
          //        - x/y not negative
-         //        - x/y is less than width and/or height
+         //        - x/y is less than width and/or height of dst
          //        - width/height is not zero or negative
          //        - etc..
       }
