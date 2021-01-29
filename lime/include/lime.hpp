@@ -4,133 +4,133 @@
 #define LIME_HPP_INCLUDED
 
 namespace lime {
-   struct point {
+   struct Point {
       int x{};
       int y{};
    };
 
-   struct rectangle {
+   struct Rectangle {
       int x{};
       int y{};
       int width{};
       int height{};
    };
 
-   struct color {
+   struct Color {
       unsigned char b{};
       unsigned char g{};
       unsigned char r{};
       unsigned char a{};
    };
 
-   struct bitmap {
+   struct Bitmap {
       int width{};
       int height{};
-      color *data{};
+      Color *data{};
    };
 
-   namespace image {
-      bool create(const char *filename, bitmap &image);
-      void destroy(bitmap &image);
+   namespace bitmap {
+      bool create(const char *filename, Bitmap &image);
+      void destroy(Bitmap &image);
    } // !image
 
    namespace window {
       bool open(const int width, const int height, const char *title);
-      void display(const bitmap &image);
+      void display(const Bitmap &image);
       bool process();
    } // !window
 
    namespace mouse {
-      enum class button {
-         left,
-         right,
-         count,
+      enum class Button {
+         Left,
+         Right,
+         Count,
       };
 
-      point position();
-      bool down(const button index);
-      bool pressed(const button index);
-      bool released(const button index);
+      Point position();
+      bool down(const Button index);
+      bool pressed(const Button index);
+      bool released(const Button index);
    } // !mouse
 
    namespace keyboard {
-      enum class key {
-         back,
-         tab,
-         clear,
-         enter,
-         escape,
-         space,
-         page_up,
-         page_down,
-         end,
-         home,
-         left,
-         up,
-         right,
-         down,
-         insert,
-         del,
-         _0,
-         _1,
-         _2,
-         _3,
-         _4,
-         _5,
-         _6,
-         _7,
-         _8,
-         _9,
-         a,
-         b,
-         c,
-         d,
-         e,
-         f,
-         g,
-         h,
-         i,
-         j,
-         k,
-         l,
-         m,
-         n,
-         o,
-         p,
-         q,
-         r,
-         s,
-         t,
-         u,
-         v,
-         w,
-         x,
-         y,
-         z,
-         f1,
-         f2,
-         f3,
-         f4,
-         f5,
-         f6,
-         f7,
-         f8,
-         f9,
-         f10,
-         f11,
-         f12,
-         left_shift,
-         right_shift,
-         left_control,
-         right_control,
-         left_alt,
-         right_alt,
-         count,
+      enum class Key{
+          Back,
+          Tab,
+          Clear,
+          Enter,
+          Escape,
+          Space,
+          PageUp,
+          PageDown,
+          End,
+          Home,
+          Left,
+          Up,
+          Right,
+          Down,
+          Insert,
+          Del,
+          Num0,
+          Num1,
+          Num2,
+          Num3,
+          Num4,
+          Num5,
+          Num6,
+          Num7,
+          Num8,
+          Num9,
+          A,
+          B,
+          C,
+          D,
+          E,
+          F,
+          G,
+          H,
+          I,
+          J,
+          K,
+          L,
+          M,
+          N,
+          O,
+          P,
+          Q,
+          R,
+          S,
+          T,
+          U,
+          V,
+          W,
+          X,
+          Y,
+          Z,
+          F1,
+          F2,
+          F3,
+          F4,
+          F5,
+          F6,
+          F7,
+          F8,
+          F9,
+          F10,
+          F11,
+          F12,
+          LeftShift,
+          RightShift,
+          LeftControl,
+          RightControl,
+          LeftAlt,
+          RightAlt,
+          Count,
       };
 
-      bool down(const key index);
-      bool pressed(const key index);
-      bool released(const key index);
+      bool down(const Key index);
+      bool pressed(const Key index);
+      bool released(const Key index);
    } // !keyboard
 } // !lime
 

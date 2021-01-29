@@ -7,21 +7,21 @@
 
 namespace lime {
    namespace image {
-      bool valid(const bitmap &bm)
+      bool valid(const Bitmap &bm)
       {
          return bm.data != nullptr;
       }
 
-      bool inside(const bitmap &image, const int x, const int y)
+      bool inside(const Bitmap &image, const int x, const int y)
       {
          // todo: checks if 'x' and 'y' is inside the bitmap.
 
          return false;
       }
 
-      color get(const bitmap &image, const int x, const int y)
+      Color get(const Bitmap &image, const int x, const int y)
       {
-         const color magenta{ 255, 0, 255, 255 };
+         const Color magenta{ 255, 0, 255, 255 };
          if (!valid(image) || !inside(image, x, y)) {
             return magenta;
          }
@@ -32,7 +32,7 @@ namespace lime {
          return magenta;
       }
 
-      void set(bitmap &image, const int x, const int y, const color c)
+      void set(Bitmap &image, const int x, const int y, const Color c)
       {
          if (!valid(image) || !inside(image, x, y)) {
             return;
@@ -42,14 +42,14 @@ namespace lime {
          //       and set it to color 'c'
       }
 
-      bool create(const int width, const int height, bitmap &image)
+      bool create(const int width, const int height, Bitmap &image)
       {
          // todo: allocate the bitmap pixel data using 'width' and 'height'.
 
          return valid(image);
       }
 
-      void clear(bitmap &image, const color c)
+      void clear(Bitmap &image, const Color c)
       {
          if (!valid(image)) {
             return;
@@ -58,7 +58,7 @@ namespace lime {
          // todo: set all bitmap pixels to color 'c'.
       }
 
-      void blit(bitmap &dst, const point &pos, const bitmap &src, const rectangle &rect)
+      void blit(Bitmap &dst, const Point &pos, const Bitmap &src, const Rectangle &rect)
       {
          // todo: blit a portion of 'src' specified by 'rect' onto the destination
          //       'dst' at the specified point 'pos'.

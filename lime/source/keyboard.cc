@@ -94,17 +94,17 @@ namespace lime {
          }
       }
 
-      bool down(const key index)
+      bool down(const Key index)
       {
          return state.keys[int(index)].current;
       }
 
-      bool pressed(const key index)
+      bool pressed(const Key index)
       {
          return state.keys[int(index)].current && !state.keys[int(index)].previous;
       }
 
-      bool released(const key index)
+      bool released(const Key index)
       {
          return !state.keys[int(index)].current && state.keys[int(index)].previous;
       }

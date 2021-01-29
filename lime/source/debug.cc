@@ -8,9 +8,9 @@
 namespace lime {
    namespace debug {
       namespace {
-         inline color get(const bitmap &src, int x, int y)
+         inline Color get(const Bitmap &src, int x, int y)
          {
-            const color dummy{ 255,0,255,255 };
+            const Color dummy{ 255,0,255,255 };
             if (x < 0 || x >= src.width || 
                 y < 0 || y >= src.height) 
             {
@@ -20,14 +20,14 @@ namespace lime {
             return src.data[y * src.width + x];
          }
 
-         inline void set(bitmap &dst, int x, int y, color c)
+         inline void set(Bitmap &dst, int x, int y, Color c)
          {
             if (x < 0 || x >= dst.width) return;
             if (y < 0 || y >= dst.height) return;
             dst.data[y * dst.width + x] = c;
          }
 
-         void blit(bitmap &dst)
+         void blit(Bitmap &dst)
          {
             // Source:
             // - https://github.com/dhepper/font8x8
@@ -158,7 +158,7 @@ namespace lime {
 
       void init()
       {
-         state.font = { 128, 128, new color[16384] };
+         state.font = { 128, 128, new Color[16384] };
          for (int index = 0; index < 16384; index++) {
             state.font.data[index] = {};
          }
@@ -166,7 +166,7 @@ namespace lime {
          blit(state.font);
       }
 
-      void log(bitmap &dst, int x, int y, color c, const char *format, ...)
+      void log(Bitmap &dst, int x, int y, Color c, const char *format, ...)
       {
          char message[2048]{};
          va_list args;
@@ -209,7 +209,7 @@ namespace lime {
                const int dst_y = y + yy;
                for (int xx = 0; xx < character_width; xx++) {
                   const int dst_x = x + xx;
-                  const color src_c = get(state.font, (src_x + xx), (src_y + yy));
+                  const Color src_c = get(state.font, (src_x + xx), (src_y + yy));
                   if (src_c.a == 0) {
                      continue;
                   }

@@ -31,22 +31,22 @@ namespace lime {
          }
       }
 
-      point position()
+      Point position()
       {
          return state.position;
       }
     
-      bool down(const button index)
+      bool down(const Button index)
       {
          return state.buttons[int(index)].current;
       }
 
-      bool pressed(const button index)
+      bool pressed(const Button index)
       {
          return state.buttons[int(index)].current && !state.buttons[int(index)].previous;
       }
 
-      bool released(const button index)
+      bool released(const Button index)
       {
          return !state.buttons[int(index)].current && state.buttons[int(index)].previous;
       }

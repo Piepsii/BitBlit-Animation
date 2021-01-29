@@ -7,7 +7,7 @@
 #include <vector>
 
 namespace lime {
-   namespace image {
+   namespace bitmap {
       using uint8  = unsigned char;
       using uint16 = unsigned short;
       using uint32 = unsigned int;
@@ -86,7 +86,7 @@ namespace lime {
          return true;
       }
 
-      bool create(const char *filename, bitmap &image)
+      bool create(const char *filename, Bitmap &image)
       {
          std::vector<uint8> content;
          if (!load_file_content(filename, content)) {
@@ -120,9 +120,9 @@ namespace lime {
          const int32 stride = width * bytes_per_pixel;
          const uint8 *src = at + (height - 1) * stride;
 
-         color *data = new color[width * height];
+         Color *data = new Color[width * height];
          for (int32 y = 0; y < height; y++) {
-            color *dst = data + y * width;
+            Color *dst = data + y * width;
 
             for (int32 x = 0; x < width; x++) {
                const int32 index = x * bytes_per_pixel;
@@ -135,7 +135,7 @@ namespace lime {
                   a = src[index + 3];
                }
 
-               color rgba = {};
+               Color rgba = {};
                rgba.r = r & 0xff;
                rgba.g = g & 0xff;
                rgba.b = b & 0xff;
@@ -153,7 +153,7 @@ namespace lime {
          return true;
       }
 
-      void destroy(bitmap &image)
+      void destroy(Bitmap &image)
       {
          if (image.data) {
             delete[] image.data;

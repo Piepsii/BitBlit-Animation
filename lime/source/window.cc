@@ -15,7 +15,7 @@ namespace lime {
          HWND window_handle;
          HDC device_context_handle;
          BITMAPINFO info;
-         bitmap backbuffer;
+         Bitmap backbuffer;
       } state{};
 
       void init()
@@ -88,7 +88,7 @@ namespace lime {
          state.info.bmiHeader.biCompression = BI_RGB;
 
          // note: debug backbuffer
-         color *buf = (color *)VirtualAlloc(nullptr, sizeof(color) * (width / 2) * (height / 2), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+         Color *buf = (Color *)VirtualAlloc(nullptr, sizeof(Color) * (width / 2) * (height / 2), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
          state.backbuffer = { (width / 2), (height / 2), buf };
          for (int index = 0; index < (width / 2) * (height / 2); index++) {
             state.backbuffer.data[index] = {};
@@ -120,9 +120,9 @@ namespace lime {
          return true;
       }
 
-      void display(const bitmap &image)
+      void display(const Bitmap &image)
       {
-         const bitmap *src = &image;
+         const Bitmap *src = &image;
          if (!src->data || src->width <= 0 || src->height <= 0) {
             src = &state.backbuffer;
 
@@ -137,7 +137,7 @@ namespace lime {
             const unsigned char r = (counter >>  0) & 0xff;
             const unsigned char g = (counter >>  8) & 0xff;
             const unsigned char b = (counter >> 16) & 0xff;
-            const color c = { r, g, b, 255 };
+            const Color c = { r, g, b, 255 };
 
             for (int index = 0; index < state.backbuffer.width * state.backbuffer.height; index++) {
                state.backbuffer.data[index] = { 255, 0, 255, 255 };

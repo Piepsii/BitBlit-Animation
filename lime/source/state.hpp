@@ -10,11 +10,11 @@ namespace lime {
       void process();
 
       struct {
-         point position;
+         Point position;
          struct {
             bool current;
             bool previous;
-         } buttons[int(button::count)];
+         } buttons[int(Button::Count)];
       } state{};
    } // !mouse
 
@@ -25,18 +25,18 @@ namespace lime {
          struct {
             bool current;
             bool previous;
-         } keys[int(key::count)];
+         } keys[int(Key::Count)];
       } state{};
    } // !keyboard
 
    namespace debug {
       void init();
-      void log(bitmap &dst, int x, int y, color c, const char *format, ...);
+      void log(Bitmap &dst, int x, int y, Color c, const char *format, ...);
       int  width(const char *text);
 
       struct {
          unsigned counter{};
-         bitmap font{};
+         Bitmap font{};
       } state{};
    } // !debug
 } // !lime
