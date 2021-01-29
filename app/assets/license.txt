@@ -1,0 +1,9 @@
+License:
+Creative Commons Attribution 3.0 Unported (CC BY 3.0) 
+https://creativecommons.org/licenses/by/3.0/
+
+Copyright/Attribution Notice: 
+Credit me as Buch and link back either to my OGA profile page or to http://blog-buch.rhcloud.com, and credit Jeffrey Kern as the committer and creative consultant.
+
+Source:
+https://opengameart.org/content/overworld-tiles-0

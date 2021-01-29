@@ -6,13 +6,13 @@ int main(int argc, char **argv)
 {
    using namespace lime;
    if (window::open(1280, 720, "lime")) {
-      Bitmap ss{};
-      if (!bitmap::create("assets/overworld.bmp", ss)) {
+      Bitmap tilemap{};
+      if (!bitmap::create("assets/overworld.bmp", tilemap)) {
          return false;
       }
 
-      Bitmap bm{};
-      if (!bitmap::create(640, 360, bm)) {
+      Bitmap image{};
+      if (!bitmap::create(640, 360, image)) {
          return false;
       }
 
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
             break;
          }
 
-         window::display(bm);
+         window::display(image);
       }
    }
 

@@ -12,6 +12,13 @@ namespace lime {
          return image.data != nullptr;
       }
 
+      bool create(const int width, const int height, Bitmap &image)
+      {
+         // todo: allocate the bitmap pixel data using 'width' and 'height'.
+
+         return valid(image);
+      }
+
       bool inside(const Bitmap &image, const int x, const int y)
       {
          // todo: checks if 'x' and 'y' is inside the bitmap.
@@ -40,13 +47,6 @@ namespace lime {
 
          // todo: calculate the correct index for 'x' and 'y' in bitmap
          //       and set it to color 'c'
-      }
-
-      bool create(const int width, const int height, Bitmap &image)
-      {
-         // todo: allocate the bitmap pixel data using 'width' and 'height'.
-
-         return valid(image);
       }
 
       void clear(Bitmap &image, const Color &color)
