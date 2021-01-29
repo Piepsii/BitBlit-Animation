@@ -138,8 +138,9 @@ namespace lime {
             const unsigned char g = (counter >>  8) & 0xff;
             const unsigned char b = (counter >> 16) & 0xff;
             const Color c = { r, g, b, 255 };
-
-            for (int index = 0; index < state.backbuffer.width * state.backbuffer.height; index++) {
+            
+            const int count = state.backbuffer.width * state.backbuffer.height;
+            for (int index = 0; index < count; index++) {
                state.backbuffer.data[index] = { 255, 0, 255, 255 };
             }
 

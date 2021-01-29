@@ -6,10 +6,10 @@
 #include <lime.hpp>
 
 namespace lime {
-   namespace image {
-      bool valid(const Bitmap &bm)
+   namespace bitmap {
+      bool valid(const Bitmap &image)
       {
-         return bm.data != nullptr;
+         return image.data != nullptr;
       }
 
       bool inside(const Bitmap &image, const int x, const int y)
@@ -32,7 +32,7 @@ namespace lime {
          return magenta;
       }
 
-      void set(Bitmap &image, const int x, const int y, const Color c)
+      void set(Bitmap &image, const int x, const int y, const Color &color)
       {
          if (!valid(image) || !inside(image, x, y)) {
             return;
@@ -49,7 +49,7 @@ namespace lime {
          return valid(image);
       }
 
-      void clear(Bitmap &image, const Color c)
+      void clear(Bitmap &image, const Color &color)
       {
          if (!valid(image)) {
             return;

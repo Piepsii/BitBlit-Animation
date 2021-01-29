@@ -12,7 +12,7 @@ int main(int argc, char **argv)
       }
 
       Bitmap bm{};
-      if (!image::create(640, 360, bm)) {
+      if (!bitmap::create(640, 360, bm)) {
          return false;
       }
 
