@@ -162,7 +162,7 @@ namespace lime {
                        &state.info,
                        DIB_RGB_COLORS,
                        SRCCOPY);
-         Sleep(2);
+         Sleep(16);
       }
    } // !window
 } // !lime

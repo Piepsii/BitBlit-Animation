@@ -4,26 +4,26 @@
 
 int main(int argc, char **argv)
 {
-   using namespace lime;
+   using namespace lime; // note: window has to be 1280x720
    if (window::open(1280, 720, "lime")) {
       Bitmap tilemap{};
-      if (!bitmap::create("assets/overworld.bmp", tilemap)) {
+      if (!bitmap::create("assets/explosion.bmp", tilemap)) {
          return false;
       }
 
-      Bitmap image{};
-      if (!bitmap::create(640, 360, image)) {
+      Bitmap image{}; // note: has to be 320x180
+      if (!bitmap::create(320, 180, image)) {
          return false;
       }
 
-      // todo: create or generate world map
+      // todo: create frames for animation
 
       while (window::process()) {
          if (keyboard::pressed(keyboard::Key::Escape)) {
             break;
          }
 
-         // todo: blit all tiles
+         // todo: blit frame animation looping
 
          window::display(image);
       }
