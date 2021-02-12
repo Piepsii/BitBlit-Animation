@@ -61,13 +61,6 @@ namespace lime {
       {
          // todo: blit a portion of 'src' specified by 'rect' onto the destination
          //       'dst' at the specified point 'pos'.
-         //
-         //       make sure to validate 'rect' and determine correct portion of 
-         //       the 'src' bitmap: 
-         //        - x/y not negative
-         //        - x/y is less than width and/or height of dst
-         //        - width/height is not zero or negative
-         //        - etc..
       }
    } // !image
 } // !lime
