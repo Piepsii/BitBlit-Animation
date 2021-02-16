@@ -1,8 +1,0 @@
-﻿  image.cc
-  debug.cc
-  keyboard.cc
-  window.cc
-  mouse.cc
-  winmain.cc
-  Generating Code...
-  lime.vcxproj -> F:\GitRepos\lime\_build\lime.debug.lib
