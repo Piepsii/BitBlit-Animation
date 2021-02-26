@@ -109,6 +109,27 @@ namespace lime
 				return;
 			}
 			// todo: find rectangle in src
+			int y_start = rect.y;
+			int y_end = rect.y + rect.height;
+			int x_start = rect.x;
+			int x_end = rect.x + rect.width;
+			int index, dstIndex;
+			for( int y = y_start; y < y_end; y++ )
+			{
+				for( int x = x_start; x < x_end; x++ )
+				{
+					index = y * src.width + x;
+					dstIndex = (pos.y + y - y_start) * dst.width + (pos.x + x - x_start);
+					if( !(index > src.width * src.height || dstIndex > dst.height * dst.width) )
+					{
+						float alpha = static_cast<float>(src.data[index].a) / 255.f;
+						dst.data[dstIndex].r = static_cast<unsigned char>(src.data[index].r * alpha) + static_cast<unsigned char>(dst.data[dstIndex].r * (1.f - alpha));
+						dst.data[dstIndex].g = static_cast<unsigned char>(src.data[index].g * alpha) + static_cast<unsigned char>(dst.data[dstIndex].g * (1.f - alpha));
+						dst.data[dstIndex].b = static_cast<unsigned char>(src.data[index].b * alpha) + static_cast<unsigned char>(dst.data[dstIndex].b * (1.f - alpha));
+
+					}
+				}
+			}
 
 			// todo: find pos in dst
 

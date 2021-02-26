@@ -19,16 +19,7 @@ int main(int argc, char **argv)
 			return false;
 		}
 
-		// todo: construct frames for animation
-		Bitmap frames[12];
-		for( int i = 0; i < 12; i++ )
-		{
-			if( !bitmap::create(96, 96, frames[i]) )
-			{
-				return false;
-			}
 
-		}
 
 		while( window::process() )
 		{
@@ -38,8 +29,14 @@ int main(int argc, char **argv)
 			}
 
 			// todo: blit frame animation looping
-
-			window::display(frames[0]);
+			for( int i = 0; i < 48; i++ )
+			{
+				Rectangle rect = { i / 4 * 96, 0, 96, 96 };
+				Point pos = { 112, 42 };
+				bitmap::blit(tileset, rect, image, pos);
+				window::display(image);
+				bitmap::clear(image, Color{ 0, 0, 0, 0 });
+			}
 		}
 	}
 
